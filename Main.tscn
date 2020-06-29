@@ -8,13 +8,13 @@
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="GameOverScreen" parent="HUD" instance=ExtResource( 4 )]
+
 [node name="Snake" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 256 )
 
 [node name="SnakeParts" type="Node2D" parent="."]
 
 [node name="CandySpawner" parent="." instance=ExtResource( 2 )]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource( 4 )]
