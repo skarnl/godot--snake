@@ -10,6 +10,11 @@ func _ready():
 
 func _on_KinematicBody_body_entered(_body):
 	emit_signal("eaten")
+	
+	$AnimationPlayer.play("eaten")
+	
+	yield($AnimationPlayer, "animation_finished")
+	
 	queue_free()
 
 
