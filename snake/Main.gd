@@ -19,7 +19,7 @@ func _ready():
 	
 	main_menu.connect("start_game", self, "_on_MainMenu_start_game")
 	
-	
+
 
 func on_Candy_candy_eaten():
 	print("main::on candy eaten")

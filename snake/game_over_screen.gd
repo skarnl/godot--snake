@@ -8,10 +8,6 @@ func _ready():
 func show_game_over():
 	show()
 	
-	$AnimationPlayer.play('show')
-	
 
 func reset():
 	hide()
-	
-	$AnimationPlayer.stop(true)

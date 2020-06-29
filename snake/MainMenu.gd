@@ -7,11 +7,7 @@ func _ready():
 	get_tree().paused = true
 	
 	$Button.grab_focus()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	show()
 
 
 func _on_Button_mouse_entered():

@@ -10,6 +10,7 @@ const CELL_SIZE = 32
 var _screen_size : Vector2
 
 func start(screen_size):
+	reset()
 	random.randomize()
 	
 	_screen_size = screen_size
@@ -46,3 +47,8 @@ func _on_Candy_rotten(candy):
 	
 func _handle_candy_gone():
 	_spawn_candy()
+
+
+func reset():
+	for child in get_children():
+		child.queue_free()
