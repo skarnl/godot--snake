@@ -12,6 +12,7 @@ enum {
 	DOWN	
 }
 
+var _screen_size
 var previous_position
 var direction = RIGHT
 var future_direction = RIGHT
@@ -54,11 +55,21 @@ func move()->void:
 			position.y -= step_size
 		DOWN:
 			position.y += step_size
+	
+	if position.x > _screen_size.x:
+		position.x = 32
+	elif position.x < 0:
+		position.x = _screen_size.x
+	
+	if position.y > _screen_size.y:
+		position.y = 32
+	elif position.y < 0:
+		position.y = _screen_size.y
 		
 	emit_signal("moved", previous_position)
-		
-		
-		
+	
+func set_size(screen_size):
+	_screen_size = screen_size	
 		
 		
 		

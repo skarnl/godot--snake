@@ -2,6 +2,7 @@ extends Node2D
 
 
 onready var game_over_screen = $HUD/GameOverScreen
+onready var main_menu = $HUD/MainMenu
 
 var snapePartInstance = preload("res://SnakePart.tscn")
 var snake_parts = []
@@ -10,13 +11,13 @@ var screen_size = Vector2.ZERO
 
 func _ready():
 	screen_size = get_viewport().size
+	$Snake.set_size(screen_size)
 	$Snake.connect("moved", self, "_on_Snake_moved")
 	
 	
 	$CandySpawner.connect("candy_eaten", self, "on_Candy_candy_eaten")
-	$CandySpawner.start(screen_size)
 	
-	reset()
+	main_menu.connect("start_game", self, "_on_MainMenu_start_game")
 	
 	
 
@@ -37,7 +38,8 @@ func _trigger_game_over():
 	
 	yield(get_tree().create_timer(5.0), "timeout")
 	
-	reset()
+	game_over_screen.reset()
+	main_menu.show()
 
 
 func _on_Snake_moved(previous_position):
@@ -50,6 +52,10 @@ func _on_Snake_moved(previous_position):
 			_trigger_game_over()
 			break
 
+func _on_MainMenu_start_game():
+	main_menu.hide()
+	reset()
+
 
 func reset():
 	for i in range(1, snake_parts.size()):
@@ -61,5 +67,6 @@ func reset():
 	$Snake.position = Vector2(screen_size.x / 2, screen_size.y / 2)
 	
 	game_over_screen.reset()
+	$CandySpawner.start(screen_size)
 	
 	get_tree().paused = false
