@@ -14,6 +14,7 @@ enum {
 
 var previous_position
 var direction = RIGHT
+var future_direction = RIGHT
 export var step_size = 32.0
 
 func _ready():
@@ -30,18 +31,20 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if direction == UP or direction == DOWN:
 			if event.is_action_pressed("ui_left"):
-				direction = LEFT
+				future_direction = LEFT
 			elif event.is_action_pressed("ui_right"):
-				direction = RIGHT
+				future_direction = RIGHT
 		else:
 			if event.is_action_pressed("ui_down"):
-				direction = DOWN
+				future_direction = DOWN
 			elif event.is_action_pressed("ui_up"):
-				direction = UP
+				future_direction = UP
 
 
 func move()->void:
 	previous_position = position
+	
+	direction = future_direction
 	
 	match direction:
 		LEFT:
