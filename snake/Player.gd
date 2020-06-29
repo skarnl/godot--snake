@@ -18,13 +18,12 @@ var future_direction = RIGHT
 export var step_size = 32.0
 
 func _ready():
-	print("Player:_ready")
-	
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
 	
 
 func _on_Timer_timeout():
 	move()
+	pass
 	
 
 func _unhandled_input(event):
