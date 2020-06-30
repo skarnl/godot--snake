@@ -11,7 +11,7 @@ jobs:
   release:
     strategy:
       matrix:
-        platform: [html5] #, windows, osx, linux
+        platform: [html5, windows, osx, linux]
 
     runs-on: ubuntu-latest
     steps:
