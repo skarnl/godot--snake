@@ -1,7 +1,7 @@
 on: 
-  create:
+  push:
     tags:
-      - 'v*'
+      - 'r*'
 
 env:
   GODOT_VERSION: 3.2.2
