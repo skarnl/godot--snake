@@ -23,8 +23,8 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       
       - uses: olegtarasov/get-tag@v2
-        id: tagName    
-      
+        id: tagName
+
       - name: push ${{ matrix.platform }} release to itch.io
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
@@ -33,4 +33,4 @@ jobs:
           ITCH_GAME: ${{ env.ITCH_GAME }}
           ITCH_USER: ${{ env.ITCH_USER }}
           PACKAGE: ${{ env.PROJECT_NAME }}--${{ matrix.platform }}.zip
-          VERSION: $GIT_TAG_NAME
+          VERSION: ${{ steps.tagName.outputs.tag }}
