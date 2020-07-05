@@ -3,10 +3,12 @@ extends Node2D
 
 onready var game_over_screen = $HUD/GameOverScreen
 onready var main_menu = $HUD/MainMenu
+onready var score = $HUD/Score
 
 var snapePartInstance = preload("res://SnakePart.tscn")
 var snake_parts = []
 var screen_size = Vector2.ZERO
+var candies_eaten = 0
 
 
 func _ready():
@@ -29,6 +31,9 @@ func on_Candy_candy_eaten():
 	
 	$SnakeParts.add_child(new_snake_part)
 	$Snake.increase_speed()
+	
+	candies_eaten += 1
+	$HUD/Score.set_counter(candies_eaten)
 
 
 func _trigger_game_over():
@@ -72,3 +77,7 @@ func reset():
 	get_tree().paused = false
 	
 	$Snake.reset()
+	score.reset()
+	
+	candies_eaten = 0
+	$HUD/Score.set_counter(0)
