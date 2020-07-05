@@ -18,10 +18,12 @@ var direction = RIGHT
 var future_direction = RIGHT
 export var step_size = 32.0
 const DEFAULT_SPEED = 0.2
+var timing
 
 func _ready():
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
 	_screen_size = get_viewport().size
+	timing = $Timer.wait_time
 
 func _on_Timer_timeout():
 	move()
@@ -44,29 +46,40 @@ func _unhandled_input(event):
 
 func move()->void:
 	previous_position = position
+	var future_position = position
 	
 	direction = future_direction
 	
+	var tween = $Tween
+	
 	match direction:
 		LEFT:
-			position.x -= step_size
+			future_position.x -= step_size
 		RIGHT:
-			position.x += step_size
+			future_position.x += step_size
 		UP:
-			position.y -= step_size
+			future_position.y -= step_size
 		DOWN:
-			position.y += step_size
+			future_position.y += step_size
 	
-	if position.x > _screen_size.x:
-		position.x = 32
-	elif position.x < 0:
-		position.x = _screen_size.x
 	
-	if position.y > _screen_size.y:
-		position.y = 32
-	elif position.y < 0:
-		position.y = _screen_size.y
-		
+	if future_position.x > _screen_size.x:
+		position.x = 0
+		future_position.x = step_size
+	elif future_position.x < 0:
+		position.x = _screen_size.x + step_size
+		future_position.x = _screen_size.x
+	
+	if future_position.y > _screen_size.y:
+		position.y = 0
+		future_position.y = step_size
+	elif future_position.y < 0:
+		position.y = _screen_size.y - step_size
+		future_position.y = _screen_size.y
+	
+	tween.interpolate_property(self, "position", position, future_position, $Timer.wait_time)
+	tween.start()
+	
 	emit_signal("moved", previous_position)
 	
 func set_size(screen_size):

@@ -29,3 +29,5 @@ script = ExtResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "loop"
 anims/loop = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]

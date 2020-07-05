@@ -43,3 +43,5 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "loop"
 anims/loop = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
