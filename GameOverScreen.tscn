@@ -1,20 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://game-over-spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/game-over-spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://game_over_screen.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/game-over-final.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 128, 0, 128, 64 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 256, 0, 128, 64 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 384, 0, 128, 64 )
 
@@ -47,4 +45,8 @@ __meta__ = {
 position = Vector2( 529, 276 )
 scale = Vector2( 5.0625, 5.0625 )
 frames = SubResource( 4 )
+frame = 1
 playing = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

@@ -7,6 +7,7 @@ func _ready():
 
 func show_game_over():
 	show()
+	$AudioStreamPlayer.play()
 	
 
 func reset():

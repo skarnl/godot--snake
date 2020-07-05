@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://title-spritesheet.png" type="Texture" id=2]
-[ext_resource path="res://start-button.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/title-spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/start-button.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )

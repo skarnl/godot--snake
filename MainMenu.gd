@@ -5,7 +5,9 @@ signal start_game
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().paused = true
-	
+	show_menu()
+
+func show_menu():
 	$Button.grab_focus()
 	show()
 

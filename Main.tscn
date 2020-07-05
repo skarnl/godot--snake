@@ -1,16 +1,32 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://SnakeHead.tscn" type="PackedScene" id=1]
-[ext_resource path="res://CandySpawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/SnakeHead.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/CandySpawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
 [ext_resource path="res://GameOverScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://MainMenu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://pause-spritesheet.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/pause-spritesheet.png" type="Texture" id=6]
 [ext_resource path="res://Pause.gd" type="Script" id=7]
 [ext_resource path="res://000webfont.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://default_theme.tres" type="Theme" id=9]
 [ext_resource path="res://score.gd" type="Script" id=10]
 [ext_resource path="res://default_font.tres" type="DynamicFont" id=11]
+
+[sub_resource type="Theme" id=7]
+default_font = ExtResource( 11 )
+Label/colors/font_color = Color( 0.741176, 0.933333, 0.0588235, 1 )
+Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
+Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+Label/constants/line_spacing = 3
+Label/constants/shadow_as_outline = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/fonts/font = null
+Label/styles/normal = null
+
+[sub_resource type="DynamicFont" id=8]
+size = 1000
+font_data = ExtResource( 8 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
@@ -40,54 +56,19 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Theme" id=7]
-default_font = ExtResource( 11 )
-Label/colors/font_color = Color( 0.741176, 0.933333, 0.0588235, 1 )
-Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
-Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-Label/constants/line_spacing = 3
-Label/constants/shadow_as_outline = 0
-Label/constants/shadow_offset_x = 1
-Label/constants/shadow_offset_y = 1
-Label/fonts/font = null
-Label/styles/normal = null
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 10.7054, 533.562 )
 
-[sub_resource type="DynamicFont" id=8]
-size = 1000
-font_data = ExtResource( 8 )
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 613.786, 18.8537 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="GameOverScreen" parent="HUD" instance=ExtResource( 4 )]
-visible = false
-
-[node name="MainMenu" parent="HUD" instance=ExtResource( 5 )]
-visible = false
-
-[node name="Pause" type="Control" parent="HUD"]
-pause_mode = 2
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="HUD/Pause"]
-position = Vector2( 513, 129 )
-scale = Vector2( 2.78125, 2.78125 )
-frames = SubResource( 6 )
-frame = 4
-speed_scale = 1.3
-playing = true
-
 [node name="Score" type="Control" parent="HUD"]
+pause_mode = 2
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -150,9 +131,63 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="HUD/Score/CenterContainer/Control"]
 
+[node name="Pause" type="Control" parent="HUD"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="HUD/Pause"]
+position = Vector2( 513, 129 )
+scale = Vector2( 2.78125, 2.78125 )
+frames = SubResource( 6 )
+frame = 3
+speed_scale = 1.3
+playing = true
+
+[node name="GameOverScreen" parent="HUD" instance=ExtResource( 4 )]
+visible = false
+
+[node name="MainMenu" parent="HUD" instance=ExtResource( 5 )]
+visible = false
+
 [node name="SnakeParts" type="Node2D" parent="."]
 
 [node name="CandySpawner" parent="." instance=ExtResource( 2 )]
 
 [node name="Snake" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
 position = Vector2( 512, 256 )
+
+[node name="left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left"]
+position = Vector2( -18.8355, 250.974 )
+shape = SubResource( 9 )
+
+[node name="right" type="Area2D" parent="."]
+position = Vector2( 1050.51, 32.758 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
+position = Vector2( -7.25381, 257.21 )
+shape = SubResource( 9 )
+
+[node name="top" type="Area2D" parent="."]
+position = Vector2( 618.361, -239.385 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top"]
+position = Vector2( -115.544, 210.026 )
+shape = SubResource( 10 )
+
+[node name="bottom" type="Area2D" parent="."]
+position = Vector2( 618.361, -239.385 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bottom"]
+position = Vector2( -121.321, 874.693 )
+shape = SubResource( 10 )
