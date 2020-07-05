@@ -11,7 +11,6 @@ var screen_size = Vector2.ZERO
 
 func _ready():
 	screen_size = get_viewport().size
-	$Snake.set_size(screen_size)
 	$Snake.connect("moved", self, "_on_Snake_moved")
 	
 	

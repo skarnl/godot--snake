@@ -21,7 +21,7 @@ const DEFAULT_SPEED = 0.2
 
 func _ready():
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
-	
+	_screen_size = get_viewport().size
 
 func _on_Timer_timeout():
 	move()
