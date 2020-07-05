@@ -27,8 +27,8 @@ func set_counter(text):
 	shoutTween.interpolate_property(shoutLabelContainer, "modulate", Color(1.0, 1.0, 1.0, 1.0), Color(1.0, 1.0, 1.0, 0.0), 0.6, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	shoutTween.start()
 	
+	counterLabel.text = str(text)
 	yield(shoutTween, 'tween_completed')
 	
 	shoutLabelContainer.hide()
 	
-	counterLabel.text = str(text)

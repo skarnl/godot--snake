@@ -36,13 +36,18 @@ func on_Candy_candy_eaten():
 	
 	var new_snake_part = snapePartInstance.instance()
 	new_snake_part.set_precursor(snake_parts.back())
+	new_snake_part.connect('hit_head', self, '_on_hit_head')
 	snake_parts.append(new_snake_part)
+	$SnakeParts.add_child(new_snake_part)
 	
 	candies_eaten += 1
 	$HUD/Score.set_counter(candies_eaten)
 	
-	$SnakeParts.add_child(new_snake_part)
 	$Snake.increase_speed()
+
+
+func _on_hit_head():
+	_trigger_game_over()
 
 
 func _trigger_game_over():
@@ -62,16 +67,6 @@ func _trigger_game_over():
 	game_over_screen.reset()
 	main_menu.show_menu()
 
-
-func _on_Snake_moved(previous_position):
-	var head = snake_parts.front()
-	
-	for i in range(1, snake_parts.size()):
-		var part = snake_parts[i]
-		
-		if head.position == part.position:
-			_trigger_game_over()
-			break
 
 func _on_MainMenu_start_game():
 	main_menu.hide()
