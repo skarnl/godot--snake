@@ -17,6 +17,7 @@ var previous_position
 var direction = RIGHT
 var future_direction = RIGHT
 export var step_size = 32.0
+const DEFAULT_SPEED = 0.2
 
 func _ready():
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
@@ -70,6 +71,11 @@ func move()->void:
 	
 func set_size(screen_size):
 	_screen_size = screen_size	
+	
+
+func increase_speed():
+	$Timer.wait_time *= 0.95	
 		
-		
+func reset():
+	$Timer.wait_time = DEFAULT_SPEED
 		

@@ -29,6 +29,7 @@ func on_Candy_candy_eaten():
 	snake_parts.append(new_snake_part)
 	
 	$SnakeParts.add_child(new_snake_part)
+	$Snake.increase_speed()
 
 
 func _trigger_game_over():
@@ -70,3 +71,5 @@ func reset():
 	$CandySpawner.start(screen_size)
 	
 	get_tree().paused = false
+	
+	$Snake.reset()
