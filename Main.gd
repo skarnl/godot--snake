@@ -10,12 +10,11 @@ var snake_parts = []
 var screen_size = Vector2.ZERO
 var candies_eaten = 0
 
-
 func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	screen_size = get_viewport().size
 	$Snake.connect("moved", self, "_on_Snake_moved")
-	
+	$HUD/Controls.hide()
 	
 	$CandySpawner.connect("candy_eaten", self, "on_Candy_candy_eaten")
 	
@@ -24,7 +23,14 @@ func _ready():
 	$bottom.connect('body_entered', self, '_on_offscreen')
 	$top.connect('body_entered', self, '_on_offscreen')
 	$left.connect('body_entered', self, '_on_offscreen')
-	$right.connect('body_entered', self, '_on_offscreen')	
+	$right.connect('body_entered', self, '_on_offscreen')
+	
+	$HUD/Controls.connect('start_game', self, '_on_Controls_start_game')
+	
+	reset()
+	main_menu.show_menu()
+	
+	get_tree().paused = true
 
 func _on_offscreen(_body):
 	_trigger_game_over()
@@ -64,14 +70,23 @@ func _trigger_game_over():
 	yield(get_tree(), 'idle_frame')
 	$Snake.pause_mode = Node.PAUSE_MODE_STOP
 	
-	game_over_screen.reset()
+	reset()
 	main_menu.show_menu()
 
 
 func _on_MainMenu_start_game():
 	main_menu.hide()
-	reset()
+	
+	$HUD/Controls.show()
+	
 
+func _on_Controls_start_game(direction):
+	$HUD/Controls.fade_out()
+	
+	start()
+	
+	$Snake.start(direction)
+	
 
 func reset():
 	for i in range(1, snake_parts.size()):
@@ -82,11 +97,13 @@ func reset():
 	snake_parts.append($Snake)
 	
 	game_over_screen.reset()
-	$CandySpawner.start(screen_size)
 	
 	score.reset()
 	
 	candies_eaten = 0
 	$HUD/Score.reset()
 
+
+func start():
+	$CandySpawner.start(screen_size)
 	get_tree().paused = false

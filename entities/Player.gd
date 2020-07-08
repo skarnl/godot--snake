@@ -18,9 +18,9 @@ var future_direction = RIGHT
 export var step_size = 32.0
 const DEFAULT_SPEED = 0.2
 var timing
+var started = false
 
 func _ready():
-	$Timer.connect("timeout", self, "_on_Timer_timeout")
 	_screen_size = get_viewport().size
 	timing = $Timer.wait_time
 	
@@ -30,7 +30,17 @@ func _on_Timer_timeout():
 	pass
 
 
+func start(_direction):
+	$Timer.connect("timeout", self, "_on_Timer_timeout")
+	$Timer.start()
+	started = true
+	direction = _direction
+	future_direction = direction
+
 func _unhandled_input(event):
+	if not started:
+		return
+	
 	if event is InputEventKey:
 		if direction == UP or direction == DOWN:
 			if event.is_action_pressed("ui_left"):
@@ -87,6 +97,8 @@ func reset():
 	
 	position = Vector2(512, 256)
 	previous_position = position
+	
+	started = false
 
 func play_eating_sound():
 	var sounds = ['hamhamham', 'slurp']
